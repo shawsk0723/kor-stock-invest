@@ -23,6 +23,8 @@ def convertTigerEtfCsvToXlsx(csvFilePath):
         df.종목코드 = tickers_new
 
         """ xlsx 파일로 저장 """
-        df.to_excel(csvFilePath.replace('.csv', '.xlsx'), index=False)
+        xlsx_file_path = csvFilePath.replace('.csv', '.xlsx')
+        df.to_excel(xlsx_file_path, index=False)
+        return xlsx_file_path
     except Exception as e:
         raise e
