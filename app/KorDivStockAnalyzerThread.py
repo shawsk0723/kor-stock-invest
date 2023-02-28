@@ -22,6 +22,8 @@ import threading
 
 from AppLogger import LOG
 import KorDivStockAnalyzer
+import Config
+import AppUtil
 
 """
 KorDivStockAnalyzerThread
@@ -34,18 +36,29 @@ class KorDivStockAnalyzerThread(threading.Thread):
     def run(self):
         self.isRunning = True
 
+        # output 폴더가 없다면 새로 생성
+        AppUtil.makeDirIfNotExist(Config.OUR_DIR)
+
         LOG('KorDivStockAnalyzerThread Start...')
+
+
         # GUI 업데이트
         self.root.startButton['state'] = DISABLED
         self.root.progressbar.start(10)
 
+        self.root.statusLabel.configure(text = '데이터 분석을 시작합니다.')
+
         # 주가/배당금 분석 
-        KorDivStockAnalyzer.analyzeStock(self.root.stockCode)
+        try:
+            KorDivStockAnalyzer.analyzeStock(self.root.stockCode)
+        except Exception as e:
+            self.root.statusLabel.configure(text = str(e))
 
         # GUI 업데이트
         self.root.startButton['state'] = NORMAL
         self.root.progressbar.stop()
 
+        self.root.statusLabel.configure(text = '데이터 분석을 완료하였습니다.')
 
         LOG('KorDivStockAnalyzerThread Stop...')
 
