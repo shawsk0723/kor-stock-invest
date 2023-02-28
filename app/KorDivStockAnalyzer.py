@@ -13,9 +13,11 @@ def analyzeStock(stockCode):
     LOG(f'analyzeStock, stock code = {stockCode}')
 
     try:
-        stockName = StockUtil.getStockName(stockCode)
-        LOG('주식 이름: {stockName}')
+        stockName = stock.get_market_ticker_name(stockCode)
+        #stockName = StockUtil.getStockName(stockCode)
+        LOG(f'주식 이름: {stockName}')
     except Exception as e:
+        LOG(str(e))
         raise(Exception(f'주식 코드가 맞는지 다시 확인해 주세요!'))
 
     # check whether code is in the TIGER ETF 50 or not
@@ -23,7 +25,9 @@ def analyzeStock(stockCode):
 
     # set period
     start_date = Config.START_DATE
+    LOG(f'시작일: {start_date}')
     end_date = StockUtil.getLastBusinessDay()
+    LOG(f'종료일: {end_date}')
 
     # collect price
     df_p = stock.get_market_ohlcv(start_date, end_date, stockCode)
@@ -38,7 +42,7 @@ def analyzeStock(stockCode):
 
     df_cur_f = stock.get_market_fundamental(end_date, end_date, stockCode)
     cur_div = df_cur_f.DIV[0]
-    LOG(f'현재 배당률 = {round(cur_div*100, 2)}%')
+    LOG(f'현재 배당률 = {round(cur_div, 2)}%')
 
     # calculate buy/sell price & score
     buy_price = df_cur_f.DPS[0]/max(df_f.DIV) * 100
@@ -67,4 +71,4 @@ def analyzeStock(stockCode):
 
     saveFilePath = os.path.join(Config.OUR_DIR, 'output.png')
     plt.savefig(saveFilePath)
-    plt.show()
+    #plt.show()
