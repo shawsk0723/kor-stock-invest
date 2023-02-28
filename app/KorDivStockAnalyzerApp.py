@@ -49,8 +49,8 @@ class GUI:
 
     def onClosing(self):
         LOG('onClosing()')
-        if self.rorDivStockAnalyzerThread != None:
-            self.rorDivStockAnalyzerThread.requestExitThread()
+        #if self.rorDivStockAnalyzerThread != None:
+            #self.rorDivStockAnalyzerThread.requestExitThread()
         root.destroy()
 
     def start(self):
