@@ -51,6 +51,7 @@ class KorDivStockAnalyzerThread(threading.Thread):
         # 주가/배당금 분석 
         try:
             KorDivStockAnalyzer.analyzeStock(self.root.stockCode)
+            self.root.statusLabel.configure(text = '데이터 분석을 완료하였습니다.')
         except Exception as e:
             self.root.statusLabel.configure(text = str(e))
 
@@ -58,7 +59,7 @@ class KorDivStockAnalyzerThread(threading.Thread):
         self.root.startButton['state'] = NORMAL
         self.root.progressbar.stop()
 
-        self.root.statusLabel.configure(text = '데이터 분석을 완료하였습니다.')
+
 
         LOG('KorDivStockAnalyzerThread Stop...')
 
