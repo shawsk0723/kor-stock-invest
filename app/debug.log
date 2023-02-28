@@ -1,0 +1,212 @@
+[2023-02-28 14:35:04,934] Start analyzing ~
+[2023-02-28 14:35:07,190] Start analyzing ~
+[2023-02-28 14:35:07,919] Start analyzing ~
+[2023-02-28 15:26:04,636] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:26:04,640] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:26:04,641] interactive is False
+[2023-02-28 15:26:04,641] platform is win32
+[2023-02-28 15:26:04,682] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:26:04,684] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:26:07,560] Start Button Clicked ~
+[2023-02-28 15:26:16,092] onClosing()
+[2023-02-28 15:26:32,650] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:26:32,656] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:26:32,657] interactive is False
+[2023-02-28 15:26:32,658] platform is win32
+[2023-02-28 15:26:32,698] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:26:32,700] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:26:34,327] Start Button Clicked ~
+[2023-02-28 15:26:39,632] Start Button Clicked ~
+[2023-02-28 15:26:40,792] Start Button Clicked ~
+[2023-02-28 15:26:43,124] onClosing()
+[2023-02-28 15:27:06,686] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:27:06,690] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:27:06,691] interactive is False
+[2023-02-28 15:27:06,692] platform is win32
+[2023-02-28 15:27:06,732] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:27:06,733] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:27:08,360] Start Button Clicked ~
+[2023-02-28 15:27:18,613] onClosing()
+[2023-02-28 15:28:06,619] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:28:06,623] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:28:06,624] interactive is False
+[2023-02-28 15:28:06,624] platform is win32
+[2023-02-28 15:28:06,664] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:28:06,667] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:28:08,271] Start Button Clicked ~
+[2023-02-28 15:28:08,273] KorDivStockAnalyzerThread Start...
+[2023-02-28 15:28:14,549] onClosing()
+[2023-02-28 15:28:24,617] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:28:24,621] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:28:24,623] interactive is False
+[2023-02-28 15:28:24,623] platform is win32
+[2023-02-28 15:28:24,662] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:28:24,664] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:28:26,383] Start Button Clicked ~
+[2023-02-28 15:28:26,386] KorDivStockAnalyzerThread Start...
+[2023-02-28 15:28:29,397] KorDivStockAnalyzerThread Stop...
+[2023-02-28 15:28:34,528] Start Button Clicked ~
+[2023-02-28 15:28:34,530] KorDivStockAnalyzerThread Start...
+[2023-02-28 15:28:37,548] KorDivStockAnalyzerThread Stop...
+[2023-02-28 15:29:41,533] onClosing()
+[2023-02-28 15:29:43,232] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:29:43,237] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:29:43,238] interactive is False
+[2023-02-28 15:29:43,238] platform is win32
+[2023-02-28 15:29:43,276] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:29:43,278] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:29:50,481] Start Button Clicked ~
+[2023-02-28 15:29:50,484] KorDivStockAnalyzerThread Start...
+[2023-02-28 15:29:53,501] KorDivStockAnalyzerThread Stop...
+[2023-02-28 15:30:36,587] onClosing()
+[2023-02-28 15:30:38,819] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:30:38,822] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:30:38,823] interactive is False
+[2023-02-28 15:30:38,823] platform is win32
+[2023-02-28 15:30:38,864] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:30:38,865] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:30:45,389] onClosing()
+[2023-02-28 15:30:59,816] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 15:30:59,820] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:30:59,821] interactive is False
+[2023-02-28 15:30:59,821] platform is win32
+[2023-02-28 15:30:59,861] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 15:30:59,863] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 15:31:01,536] Start Button Clicked ~
+[2023-02-28 15:31:01,539] KorDivStockAnalyzerThread Start...
+[2023-02-28 15:31:04,549] KorDivStockAnalyzerThread Stop...
+[2023-02-28 16:51:56,584] onClosing()
+[2023-02-28 16:52:19,230] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 16:52:19,234] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:52:19,235] interactive is False
+[2023-02-28 16:52:19,235] platform is win32
+[2023-02-28 16:52:19,275] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:52:19,276] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 16:52:54,754] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 16:52:54,758] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:52:54,759] interactive is False
+[2023-02-28 16:52:54,759] platform is win32
+[2023-02-28 16:52:54,805] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:52:54,807] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 16:55:53,894] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 16:55:53,898] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:55:53,900] interactive is False
+[2023-02-28 16:55:53,900] platform is win32
+[2023-02-28 16:55:53,940] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:55:53,943] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 16:57:54,667] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 16:57:54,671] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:57:54,673] interactive is False
+[2023-02-28 16:57:54,673] platform is win32
+[2023-02-28 16:57:54,711] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:57:54,713] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 16:58:01,353] onClosing()
+[2023-02-28 16:59:25,930] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 16:59:25,934] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:59:25,935] interactive is False
+[2023-02-28 16:59:25,936] platform is win32
+[2023-02-28 16:59:25,974] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 16:59:25,976] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:04:31,840] onClosing()
+[2023-02-28 17:04:34,798] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:04:34,802] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:04:34,803] interactive is False
+[2023-02-28 17:04:34,803] platform is win32
+[2023-02-28 17:04:34,841] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:04:34,843] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:05:13,722] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:05:13,727] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:05:13,728] interactive is False
+[2023-02-28 17:05:13,729] platform is win32
+[2023-02-28 17:05:13,768] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:05:13,769] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:05:27,966] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:05:27,969] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:05:27,970] interactive is False
+[2023-02-28 17:05:27,970] platform is win32
+[2023-02-28 17:05:28,010] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:05:28,011] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:05:55,796] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:05:55,800] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:05:55,801] interactive is False
+[2023-02-28 17:05:55,801] platform is win32
+[2023-02-28 17:05:55,839] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:05:55,841] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:06:23,626] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:06:23,630] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:06:23,631] interactive is False
+[2023-02-28 17:06:23,631] platform is win32
+[2023-02-28 17:06:23,672] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:06:23,673] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:06:25,578] Start Button Clicked ~
+[2023-02-28 17:06:25,580] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:06:28,594] KorDivStockAnalyzerThread Stop...
+[2023-02-28 17:06:44,975] onClosing()
+[2023-02-28 17:15:10,612] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:15:10,616] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:15:10,617] interactive is False
+[2023-02-28 17:15:10,617] platform is win32
+[2023-02-28 17:15:10,656] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:15:10,658] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:15:12,292] Start Button Clicked ~
+[2023-02-28 17:15:12,295] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:15:16,689] onClosing()
+[2023-02-28 17:16:50,331] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:16:50,335] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:16:50,337] interactive is False
+[2023-02-28 17:16:50,337] platform is win32
+[2023-02-28 17:16:50,375] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:16:50,377] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:16:51,955] Start Button Clicked ~
+[2023-02-28 17:16:51,957] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:17:04,257] onClosing()
+[2023-02-28 17:17:34,024] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:17:34,028] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:17:34,029] interactive is False
+[2023-02-28 17:17:34,029] platform is win32
+[2023-02-28 17:17:34,067] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:17:34,069] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:17:35,643] Start Button Clicked ~
+[2023-02-28 17:17:35,646] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:17:35,649] analyzeStock, stock code = 
+[2023-02-28 17:17:35,650] KorDivStockAnalyzerThread Stop...
+[2023-02-28 17:17:40,963] Start Button Clicked ~
+[2023-02-28 17:17:40,965] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:17:40,969] analyzeStock, stock code = 
+[2023-02-28 17:17:40,970] KorDivStockAnalyzerThread Stop...
+[2023-02-28 17:17:45,307] Start Button Clicked ~
+[2023-02-28 17:17:45,311] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:17:45,312] analyzeStock, stock code = 123456
+[2023-02-28 17:17:45,316] KorDivStockAnalyzerThread Stop...
+[2023-02-28 17:17:49,193] onClosing()
+[2023-02-28 17:19:04,221] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:19:04,225] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:19:04,226] interactive is False
+[2023-02-28 17:19:04,226] platform is win32
+[2023-02-28 17:19:04,267] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:19:04,269] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:19:05,932] Start Button Clicked ~
+[2023-02-28 17:19:50,137] onClosing()
+[2023-02-28 17:19:59,127] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:19:59,131] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:19:59,132] interactive is False
+[2023-02-28 17:19:59,132] platform is win32
+[2023-02-28 17:19:59,173] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:19:59,174] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:20:00,828] Start Button Clicked ~
+[2023-02-28 17:20:05,396] Start Button Clicked ~
+[2023-02-28 17:20:05,399] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:20:05,403] analyzeStock, stock code = 123
+[2023-02-28 17:20:05,405] KorDivStockAnalyzerThread Stop...
+[2023-02-28 17:20:12,897] onClosing()
+[2023-02-28 17:20:18,821] matplotlib data path: C:\Users\shaws\AppData\Local\Programs\Python\Python310\lib\site-packages\matplotlib\mpl-data
+[2023-02-28 17:20:18,825] CONFIGDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:20:18,827] interactive is False
+[2023-02-28 17:20:18,827] platform is win32
+[2023-02-28 17:20:18,865] CACHEDIR=C:\Users\shaws\.matplotlib
+[2023-02-28 17:20:18,867] Using fontManager instance from C:\Users\shaws\.matplotlib\fontlist-v330.json
+[2023-02-28 17:20:26,356] Start Button Clicked ~
+[2023-02-28 17:20:26,359] KorDivStockAnalyzerThread Start...
+[2023-02-28 17:20:26,363] analyzeStock, stock code = 000232
+[2023-02-28 17:20:26,364] KorDivStockAnalyzerThread Stop...
+[2023-02-28 17:20:35,224] onClosing()
