@@ -15,7 +15,7 @@ import pandas as pd
 from pykrx import stock
 import matplotlib.pyplot as plt
 import time
-plt.rcParams['font.family'] = 'Malgun Gothic'
+#plt.rcParams['font.family'] = 'Malgun Gothic'
 
 import traceback
 import threading
