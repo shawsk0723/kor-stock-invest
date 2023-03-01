@@ -44,14 +44,20 @@ class GUI:
 
         self.stockCode = ""
         self.rorDivStockAnalyzerThread = None
+
+        self.analysisResult = False
+        self.analysisFinished = False
         #self.downloadWorker = DownloadWorker(os.getcwd() + '\\download\\', self._callback)
         #self.downloadWorker.start()
+        self.analysisResultChecker = self.root.after(200, self.checkAnalysisResult)
 
     def onClosing(self):
         LOG('onClosing()')
-        #if self.rorDivStockAnalyzerThread != None:
-            #self.rorDivStockAnalyzerThread.requestExitThread()
-        root.destroy()
+        try:
+            root.after_cancel(self.analysisResultChecker)
+            root.destroy()
+        except Exception as e:
+            LOG(str(e))
 
     def start(self):
 
@@ -97,22 +103,23 @@ class GUI:
         openBlogButton = Button(root, text = "코드장인의 블로그 바로가기",command=openBlog)
         openBlogButton.pack(side=BOTTOM, pady=20)
 
+    def threadCb(self, success):
+        self.analysisFinished = True
+        self.analysisResult = success
 
+    def checkAnalysisResult(self):
+        if self.analysisFinished:
+            if self.analysisResult:
+                LOG('stock analysis success !')
+                stockAnalyzer = self.rorDivStockAnalyzerThread.stockAnalyzer
+                stockAnalyzer.savePriceDivChart()
+                analysisResult = stockAnalyzer.getResult()
+            else:
+                LOG('stock analysis fail !')
 
-    def _startDownload(self):
-        try:
-            self.stockCode = self.codeEntry.get()
-            if self.stockCode == "":
-                LOG("youtube url is empty ~")
-                self.statusLabel.configure(text = '주식 코드를 입력하세요 !')
-                self.infoLabel.configure(text = '')
-                return
+            self.analysisFinished = False
 
-            #self.startButton['state'] = DISABLED
-            #self.progressbar.start(10)
-            self.downloadWorker.requestAudioDownload(self.stockCode)
-        except Exception as e:
-            raise(e)
+        self.analysisResultChecker = self.root.after(200, self.checkAnalysisResult)
 
 if __name__ == "__main__":
     root = Tk()
