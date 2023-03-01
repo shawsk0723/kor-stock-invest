@@ -9,7 +9,7 @@ from scipy.signal import savgol_filter
 from pykrx import stock
 import matplotlib.pyplot as plt
 import time
-plt.rcParams['font.family'] = 'Malgun Gothic'
+#plt.rcParams['font.family'] = 'Malgun Gothic'
 
 from AppLogger import LOG
 
