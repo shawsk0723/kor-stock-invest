@@ -9,72 +9,117 @@ from AppLogger import LOG
 import Config
 import StockUtil
 
-def analyzeStock(stockCode):
-    LOG(f'analyzeStock, stock code = {stockCode}')
+class KorDivStockAnalyzer():
+    def __init__(self, stockCode):
+        self.stockCode = stockCode
 
-    try:
-        stockName = stock.get_market_ticker_name(stockCode)
-        #stockName = StockUtil.getStockName(stockCode)
-        LOG(f'주식 이름: {stockName}')
-    except Exception as e:
-        LOG(str(e))
-        raise(Exception(f'주식 코드가 맞는지 다시 확인해 주세요!'))
+    def getStockName(self):
+        LOG(f'getStockName, stock code = {self.stockCode}')
 
-    # check whether code is in the TIGER ETF 50 or not
+        try:
+            self.stockName = stock.get_market_ticker_name(self.stockCode)
+            #stockName = StockUtil.getStockName(stockCode)
+            LOG(f'주식 이름: {self.stockName}')
+            return self.stockName
+        except Exception as e:
+            LOG(str(e))
+            raise(Exception(f'주식 코드가 맞는지 다시 확인해 주세요!'))
+
+    """
+    주가, 배당금 데이터 수집
+    """
+    def collectStockData(self):
+        LOG(f'collectStockData, stock name = {self.stockName}')
+
+        stockCode = self.stockCode
+
+        # To-Do: check whether code is in the TIGER ETF 50 or not
 
 
-    # set period
-    start_date = Config.START_DATE
-    LOG(f'시작일: {start_date}')
-    end_date = StockUtil.getLastBusinessDay()
-    LOG(f'종료일: {end_date}')
+        # set period
+        start_date = Config.START_DATE
+        LOG(f'시작일: {start_date}')
+        end_date = StockUtil.getLastBusinessDay()
+        LOG(f'종료일: {end_date}')
 
-    # collect price
-    df_p = stock.get_market_ohlcv(start_date, end_date, stockCode)
-    close_prices = savgol_filter(df_p.종가, 51, 3)
+        # collect price
+        self.df_p = stock.get_market_ohlcv(start_date, end_date, stockCode)
 
-    # sleep to aviod server denial
-    time.sleep(2)
+        # sleep to aviod server denial
+        time.sleep(2)
 
-    # collect dividend
-    df_f = stock.get_market_fundamental(start_date, end_date, stockCode, freq='d')
-    div_yields = savgol_filter(df_f.DIV, 51, 3)
+        # collect dividend
+        self.df_f = stock.get_market_fundamental(start_date, end_date, stockCode, freq='d')
 
-    df_cur_f = stock.get_market_fundamental(end_date, end_date, stockCode)
-    cur_div = df_cur_f.DIV[0]
-    LOG(f'현재 배당률 = {round(cur_div, 2)}%')
+        # sleep to aviod server denial
+        time.sleep(2)
 
-    # calculate buy/sell price & score
-    div_yields_without_zero = df_f.DIV[df_f.DIV > 0]
-    div_yields_without_zero_filtered = savgol_filter(div_yields_without_zero, 51, 3)
-    div_min = round(min(div_yields_without_zero_filtered), 2)
-    div_max = round(max(div_yields_without_zero_filtered), 2)
+        self.df_cur_f = stock.get_market_fundamental(end_date, end_date, stockCode)
+ 
+    """
+    주가, 배당금 데이터로 매수 가격, 매도 가격, 매수 점수 계산
+    """
+    def analyzeStockData(self):
+        LOG(f'analyzeStockData, stock name = {self.stockName}')
+        
+        df_f = self.df_f
+        df_p = self.df_p
+        df_cur_f = self.df_cur_f
 
-    buy_price = df_cur_f.DPS[0]/div_max * 100
-    LOG(f'목표 매수 가격 = {round(buy_price)}')
+        # calculate buy/sell price & score
+        self.close_prices = savgol_filter(df_p.종가, 51, 3)
+        self.div_yields = savgol_filter(df_f.DIV, 51, 3)
 
-    sell_price = df_cur_f.DPS[0]/div_min * 100
-    LOG(f'목표 매도 가격 = {round(sell_price)}')
+        div_yields_without_zero = df_f.DIV[df_f.DIV > 0]
+        div_yields_without_zero_filtered = savgol_filter(div_yields_without_zero, 51, 3)
+        div_min = round(min(div_yields_without_zero_filtered), 2)
+        div_max = round(max(div_yields_without_zero_filtered), 2)
 
-    buy_score = StockUtil.calculate_buy_score(cur_div, div_min, div_max)
-    LOG(f'매수 점수 = {round(buy_score)}')
+        self.cur_dps = df_cur_f.DPS[0]
+        LOG(f'배당금 = {self.cur_dps}')
 
-    # draw graph & save image
-    fig, ax1 = plt.subplots()
+        self.cur_div = df_cur_f.DIV[0]
+        LOG(f'배당률 = {round(self.cur_div, 2)}%')
 
-    color = 'tab:red'
-    ax1.set_xlabel('year')
-    ax1.set_ylabel('price', color=color)
-    ax1.set_xticks([])
-    ax1.plot(close_prices, color=color)
+        self.buy_price = df_cur_f.DPS[0]/div_max * 100
+        LOG(f'목표 매수 가격 = {round(self.buy_price)}')
 
-    ax2 = ax1.twinx()
+        self.sell_price = df_cur_f.DPS[0]/div_min * 100
+        LOG(f'목표 매도 가격 = {round(self.sell_price)}')
 
-    color = 'tab:blue'
-    ax2.set_ylabel('dividend yield', color=color)
-    ax2.plot(div_yields, color=color)
-    plt.title(f'[{stockName}] 주가 vs. 배당률')
+        self.buy_score = StockUtil.calculate_buy_score(self.cur_div, div_min, div_max)
+        LOG(f'매수 점수 = {round(self.buy_score)}')
 
-    saveFilePath = os.path.join(Config.OUR_DIR, 'output.png')
-    plt.savefig(saveFilePath)
-    #plt.show()
+    def getResult(self):
+        analysisResult = {}
+        analysisResult['배당금'] = round(self.cur_dps)
+        analysisResult['배당률'] = round(self.cur_div, 2)
+        analysisResult['목표 매수 가격'] = round(self.buy_price)
+        analysisResult['목표 매도 가격'] = round(self.sell_price)
+        analysisResult['매수 점수'] = round(self.buy_score)
+        return analysisResult
+
+    def savePriceDivChart(self):
+
+        # draw graph & save image
+        fig, ax1 = plt.subplots()
+
+        color = 'tab:red'
+        ax1.set_xlabel('year')
+        ax1.set_ylabel('price', color=color)
+        ax1.set_xticks([])
+        ax1.plot(self.close_prices, color=color)
+
+        ax2 = ax1.twinx()
+
+        color = 'tab:blue'
+        ax2.set_ylabel('dividend yield', color=color)
+        ax2.plot(self.div_yields, color=color)
+        plt.title(f'[{self.stockName}] 주가 vs. 배당률')
+
+        saveFilePath = os.path.join(Config.OUR_DIR, f'{self.stockName}.png')
+        plt.savefig(saveFilePath)
+        plt.close('all')
+        #plt.show()
+
+        return saveFilePath
