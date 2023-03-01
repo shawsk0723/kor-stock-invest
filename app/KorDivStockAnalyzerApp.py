@@ -23,7 +23,7 @@ import ExpiryChecker
 App config
 """
 
-WIN_SIZE = "800x400"                 
+WIN_SIZE = Config.WIN_SIZE
 WIN_TITLE = Config.WIN_TITLE
 WIN_FONT = "*Font"
 WIN_FONT_SETTING = "맑은고딕 15"
@@ -74,6 +74,10 @@ class GUI:
                 if self.stockCode == "":
                     messagebox.showerror('Error', '코드를 입력하세요!')
                     return
+                # 결과 리셋
+                self.resultText.delete(1.0,END)
+                self.resultText.insert(END, '분석 결과')
+                # 분석 쓰레드 실행
                 self.rorDivStockAnalyzerThread = KorDivStockAnalyzerThread(self)
                 self.rorDivStockAnalyzerThread.start()
             except Exception as e:
@@ -97,8 +101,10 @@ class GUI:
         self.statusLabel = Label(root, text = f'진행 상태')
         self.statusLabel.pack(pady=PADY*2)
 
-        #self.infoLabel = Label(root, text = f'다운로드 정보')
-        #self.infoLabel.pack(pady=PADY*2)
+        #self.resultLabel = Label(root, text = f'분석 결과')
+        self.resultText = Text(root, height=10, width=50)
+        self.resultText.insert(END, '분석 결과')
+        self.resultText.pack(pady=PADY*2)
 
         openBlogButton = Button(root, text = "코드장인의 블로그 바로가기",command=openBlog)
         openBlogButton.pack(side=BOTTOM, pady=20)
@@ -113,7 +119,15 @@ class GUI:
                 LOG('stock analysis success !')
                 stockAnalyzer = self.rorDivStockAnalyzerThread.stockAnalyzer
                 stockAnalyzer.savePriceDivChart()
+                stockName = stockAnalyzer.getStockName()
                 analysisResult = stockAnalyzer.getResult()
+                analysisResultTxt = f"{stockName} 분석 결과"
+                for key, value in analysisResult.items():
+                    analysisResultTxt += '\n'
+                    analysisResultTxt += f'{key}: {value}'
+
+                self.resultText.delete(1.0,END) # 텍스트 위젯 리셋
+                self.resultText.insert(END, analysisResultTxt)
             else:
                 LOG('stock analysis fail !')
 
