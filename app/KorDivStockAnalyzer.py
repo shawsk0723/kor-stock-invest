@@ -45,13 +45,18 @@ def analyzeStock(stockCode):
     LOG(f'현재 배당률 = {round(cur_div, 2)}%')
 
     # calculate buy/sell price & score
-    buy_price = df_cur_f.DPS[0]/max(df_f.DIV) * 100
+    div_yields_without_zero = df_f.DIV[df_f.DIV > 0]
+    div_yields_without_zero_filtered = savgol_filter(div_yields_without_zero, 51, 3)
+    div_min = round(min(div_yields_without_zero_filtered), 2)
+    div_max = round(max(div_yields_without_zero_filtered), 2)
+
+    buy_price = df_cur_f.DPS[0]/div_max * 100
     LOG(f'목표 매수 가격 = {round(buy_price)}')
 
-    sell_price = df_cur_f.DPS[0]/min(df_f.DIV) * 100
+    sell_price = df_cur_f.DPS[0]/div_min * 100
     LOG(f'목표 매도 가격 = {round(sell_price)}')
 
-    buy_score = StockUtil.calculate_buy_score(cur_div, min(div_yields), max(div_yields))
+    buy_score = StockUtil.calculate_buy_score(cur_div, div_min, div_max)
     LOG(f'매수 점수 = {round(buy_score)}')
 
     # draw graph & save image
@@ -60,6 +65,7 @@ def analyzeStock(stockCode):
     color = 'tab:red'
     ax1.set_xlabel('year')
     ax1.set_ylabel('price', color=color)
+    ax1.set_xticks([])
     ax1.plot(close_prices, color=color)
 
     ax2 = ax1.twinx()
