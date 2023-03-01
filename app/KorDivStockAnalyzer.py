@@ -12,13 +12,15 @@ import StockUtil
 class KorDivStockAnalyzer():
     def __init__(self, stockCode):
         self.stockCode = stockCode
+        self.stockName = ""
 
     def getStockName(self):
         LOG(f'getStockName, stock code = {self.stockCode}')
 
         try:
-            self.stockName = stock.get_market_ticker_name(self.stockCode)
-            #stockName = StockUtil.getStockName(stockCode)
+            if self.stockName == "":
+                self.stockName = stock.get_market_ticker_name(self.stockCode)
+                #stockName = StockUtil.getStockName(stockCode)
             LOG(f'주식 이름: {self.stockName}')
             return self.stockName
         except Exception as e:
@@ -79,7 +81,7 @@ class KorDivStockAnalyzer():
         LOG(f'배당금 = {self.cur_dps}')
 
         self.cur_div = df_cur_f.DIV[0]
-        LOG(f'배당률 = {round(self.cur_div, 2)}%')
+        LOG(f'배당률 = {self.cur_div}')
 
         self.buy_price = df_cur_f.DPS[0]/div_max * 100
         LOG(f'목표 매수 가격 = {round(self.buy_price)}')
@@ -92,8 +94,8 @@ class KorDivStockAnalyzer():
 
     def getResult(self):
         analysisResult = {}
-        analysisResult['배당금'] = round(self.cur_dps)
-        analysisResult['배당률'] = round(self.cur_div, 2)
+        analysisResult['배당금'] = self.cur_dps
+        analysisResult['배당률'] = self.cur_div
         analysisResult['목표 매수 가격'] = round(self.buy_price)
         analysisResult['목표 매도 가격'] = round(self.sell_price)
         analysisResult['매수 점수'] = round(self.buy_score)
