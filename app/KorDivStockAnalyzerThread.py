@@ -21,7 +21,7 @@ import traceback
 import threading
 
 from AppLogger import LOG
-import KorDivStockAnalyzer
+from KorDivStockAnalyzer import KorDivStockAnalyzer
 import Config
 import AppUtil
 
@@ -32,37 +32,38 @@ class KorDivStockAnalyzerThread(threading.Thread):
     def __init__(self, root):
         threading.Thread.__init__(self)
         self.root = root
+        self.stockAnalyzer = KorDivStockAnalyzer(self.root.stockCode)
 
     def run(self):
-        self.isRunning = True
+        LOG('KorDivStockAnalyzerThread Start...')
 
         # output 폴더가 없다면 새로 생성
         AppUtil.makeDirIfNotExist(Config.OUR_DIR)
-
-        LOG('KorDivStockAnalyzerThread Start...')
-
 
         # GUI 업데이트
         self.root.startButton['state'] = DISABLED
         self.root.progressbar.start(10)
 
-        self.root.statusLabel.configure(text = '데이터 분석을 시작합니다.')
-
-        # 주가/배당금 분석 
+        # 주가와 배당금 데이터 수집, 분석 
         try:
-            KorDivStockAnalyzer.analyzeStock(self.root.stockCode)
-            self.root.statusLabel.configure(text = '데이터 분석을 완료하였습니다.')
+            stockName = self.stockAnalyzer.getStockName()
+
+            self.root.statusLabel.configure(text = f'{stockName} 데이터를 수집합니다.')
+            self.stockAnalyzer.collectStockData()
+
+            self.root.statusLabel.configure(text = f'{stockName} 데이터를 분석합니다.')
+            self.stockAnalyzer.analyzeStockData()
+
+            self.root.statusLabel.configure(text = f'{stockName} 데이터 분석을 완료하였습니다.')
+
+            self.root.threadCb(True)
         except Exception as e:
             self.root.statusLabel.configure(text = str(e))
-
-        # GUI 업데이트
-        self.root.startButton['state'] = NORMAL
-        self.root.progressbar.stop()
-
-
-
-        LOG('KorDivStockAnalyzerThread Stop...')
+            self.root.threadCb(False)
+        finally:
+            # GUI 업데이트
+            self.root.startButton['state'] = NORMAL
+            self.root.progressbar.stop()
+            LOG('KorDivStockAnalyzerThread Stop...')
 
 
-    def requestExitThread(self):
-        self.isRunning = False
