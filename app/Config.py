@@ -8,7 +8,7 @@ Build Type
 RELEASE = 'Release'
 DEBUG = 'Debug'
 
-__BUILD_TYPE__ = DEBUG
+__BUILD_TYPE__ = RELEASE
 
 def isRelease():
     return __BUILD_TYPE__ == RELEASE
