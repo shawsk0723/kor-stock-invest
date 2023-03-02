@@ -28,12 +28,7 @@ from KorDivStockPricer import KorDivStockPricer
 import Config
 import AppUtil
 
-
-kodivstock_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-+ '/kodivstock/')
-sys.path.append(kodivstock_dir)
-import divexcelanalyzer as dea
-
+from DivHistoryAnalyzer import DivHistoryAnalyzer
 
 
 """
@@ -43,6 +38,7 @@ class KorDivStockAnalyzerThread(threading.Thread):
     def __init__(self, root):
         threading.Thread.__init__(self)
         self.root = root
+        self.divHistoryAnalyzer = DivHistoryAnalyzer()
         self.stockPricer = KorDivStockPricer(self.root.stockCode)
 
     def run(self):
@@ -60,23 +56,12 @@ class KorDivStockAnalyzerThread(threading.Thread):
             stockCode = self.root.stockCode
 
             # check whether code is in the TIGER ETF 50 or not
-            divExcelAnalyzer = dea.DivExcelAnalyzer('./data/tiger_divgrowth50_dps_data_2012_2021.xlsx')
-            tickers = divExcelAnalyzer.getTickers()
             if Config.isRelease():
-                if not stockCode in tickers:
-                    message = f'<{stockCode}> TIGER 배당성장 ETF 보유 종목이 아닙니다.'
-                    self.root.statusLabel.configure(text = message)
-                    self.root.threadCb(False)
-                    LOG(message)
-                    return
+                self.divHistoryAnalyzer.checkStockCodeInTigerETF(stockCode)
 
-            divGrowthYears = divExcelAnalyzer.getDivGrowthYears([stockCode])
-            LOG(f'div growth years {divGrowthYears}')
-            divGrowthRate3 = divExcelAnalyzer.getDivGrowthRates([stockCode], 3)
-            LOG(f'3 year div growth rates  {divGrowthRate3}')
-            divGrowthRate7 = divExcelAnalyzer.getDivGrowthRates([stockCode], 7)
-            LOG(f'7 year div growth rates  {divGrowthRate7}')
+            self.divGrowthInfo = self.divHistoryAnalyzer.getDivGrowthInfo(stockCode)
 
+            # get stock name
             stockName = self.stockPricer.getStockName()
 
             self.root.statusLabel.configure(text = f'{stockName} 데이터를 수집합니다.')
