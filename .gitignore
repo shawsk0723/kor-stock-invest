@@ -2,7 +2,10 @@
 .ipynb_checkpoints
 kodivstock/__pycache__/
 app/__pycache__/
+app/kodivstock/__pycache__/
 app/build/
 app/dist/
 app/output/
-app/debug.log
+
+app/*.spec
+app/*.log
