@@ -70,7 +70,7 @@ class KorDivStockAnalyzerThread(threading.Thread):
 
             # analyze stock data
             self.root.statusLabel.configure(text = f'{stockName} 데이터를 분석합니다.')
-            self.stockPricer.analyzeStockData()
+            self.pricingResult = self.stockPricer.doStockPricing()
 
             self.root.statusLabel.configure(text = f'{stockName} 데이터 분석을 완료하였습니다.')
 
