@@ -62,15 +62,20 @@ class KorDivStockAnalyzerThread(threading.Thread):
             # check whether code is in the TIGER ETF 50 or not
             divExcelAnalyzer = dea.DivExcelAnalyzer('./data/tiger_divgrowth50_dps_data_2012_2021.xlsx')
             tickers = divExcelAnalyzer.getTickers()
-            if Config.isRelease() and not stockCode in tickers:
-                message = 'TIGER 배당성장 ETF 보유 종목이 아닙니다.'
-                self.root.statusLabel.configure(text = message)
-                self.root.threadCb(False)
-                return
+            if Config.isRelease():
+                if not stockCode in tickers:
+                    message = f'<{stockCode}> TIGER 배당성장 ETF 보유 종목이 아닙니다.'
+                    self.root.statusLabel.configure(text = message)
+                    self.root.threadCb(False)
+                    LOG(message)
+                    return
 
-            divGrowthYear = divExcelAnalyzer.getDivGrowthYears(stockCode)
-            divGrowthRate3 = divExcelAnalyzer.getDivGrowthRates(stockCode, 3)
-            divGrowthRate7 = divExcelAnalyzer.getDivGrowthRates(stockCode, 7)
+            divGrowthYears = divExcelAnalyzer.getDivGrowthYears([stockCode])
+            LOG(f'div growth years {divGrowthYears}')
+            divGrowthRate3 = divExcelAnalyzer.getDivGrowthRates([stockCode], 3)
+            LOG(f'3 year div growth rates  {divGrowthRate3}')
+            divGrowthRate7 = divExcelAnalyzer.getDivGrowthRates([stockCode], 7)
+            LOG(f'7 year div growth rates  {divGrowthRate7}')
 
             stockName = self.stockAnalyzer.getStockName()
 
