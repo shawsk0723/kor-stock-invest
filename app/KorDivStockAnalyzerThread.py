@@ -24,7 +24,7 @@ import traceback
 import threading
 
 from AppLogger import LOG
-from KorDivStockAnalyzer import KorDivStockAnalyzer
+from KorDivStockPricer import KorDivStockPricer
 import Config
 import AppUtil
 
@@ -43,7 +43,7 @@ class KorDivStockAnalyzerThread(threading.Thread):
     def __init__(self, root):
         threading.Thread.__init__(self)
         self.root = root
-        self.stockAnalyzer = KorDivStockAnalyzer(self.root.stockCode)
+        self.stockPricer = KorDivStockPricer(self.root.stockCode)
 
     def run(self):
         LOG('KorDivStockAnalyzerThread Start...')
@@ -77,13 +77,13 @@ class KorDivStockAnalyzerThread(threading.Thread):
             divGrowthRate7 = divExcelAnalyzer.getDivGrowthRates([stockCode], 7)
             LOG(f'7 year div growth rates  {divGrowthRate7}')
 
-            stockName = self.stockAnalyzer.getStockName()
+            stockName = self.stockPricer.getStockName()
 
             self.root.statusLabel.configure(text = f'{stockName} 데이터를 수집합니다.')
-            self.stockAnalyzer.collectStockData()
+            self.stockPricer.collectStockData()
 
             self.root.statusLabel.configure(text = f'{stockName} 데이터를 분석합니다.')
-            self.stockAnalyzer.analyzeStockData()
+            self.stockPricer.analyzeStockData()
 
             self.root.statusLabel.configure(text = f'{stockName} 데이터 분석을 완료하였습니다.')
 
