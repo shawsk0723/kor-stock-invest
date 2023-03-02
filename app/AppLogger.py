@@ -10,33 +10,38 @@ Author
 from logging.config import dictConfig
 import logging
 
-CONSOLE_PRINT = True
+
 
 dictConfig({
     'version': 1,
     'formatters': {
-        'default': {
-            'format': '[%(asctime)s] %(message)s',
+        'standard': {
+            'format': '[%(levelname)s] %(message)s - [pid:%(process)d - %(asctime)s - %(name)s]',
         }
     },
     'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'formatter': 'standard',
+            'class': 'logging.StreamHandler',
+        },
         'file': {
             'level': 'DEBUG',
+            'formatter': 'standard',
             'class': 'logging.FileHandler',
             'filename': 'debug.log',
-            'formatter': 'default',
+            'mode': 'w',
         },
     },
     'root': {
         'level': 'DEBUG',
-        'handlers': ['file']
+        'handlers': ['console', 'file'],
     }
 })
 
 def LOG(message):
     logging.debug(message)
-    if CONSOLE_PRINT:
-        print(message)
+
 
 """
 test
