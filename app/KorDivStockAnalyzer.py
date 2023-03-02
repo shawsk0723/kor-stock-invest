@@ -35,9 +35,6 @@ class KorDivStockAnalyzer():
 
         stockCode = self.stockCode
 
-        # To-Do: check whether code is in the TIGER ETF 50 or not
-
-
         # set period
         start_date = Config.START_DATE
         LOG(f'시작일: {start_date}')
