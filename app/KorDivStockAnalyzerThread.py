@@ -64,9 +64,11 @@ class KorDivStockAnalyzerThread(threading.Thread):
             # get stock name
             stockName = self.stockPricer.getStockName()
 
+            # collect stock data
             self.root.statusLabel.configure(text = f'{stockName} 데이터를 수집합니다.')
             self.stockPricer.collectStockData()
 
+            # analyze stock data
             self.root.statusLabel.configure(text = f'{stockName} 데이터를 분석합니다.')
             self.stockPricer.analyzeStockData()
 
