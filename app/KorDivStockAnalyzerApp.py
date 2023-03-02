@@ -117,17 +117,17 @@ class GUI:
         if self.analysisFinished:
             if self.analysisResult:
                 LOG('stock analysis success !')
-                stockAnalyzer = self.rorDivStockAnalyzerThread.stockPricer
-                stockAnalyzer.savePriceDivChart()
-                stockName = stockAnalyzer.getStockName()
-                analysisResult = stockAnalyzer.getResult()
-                analysisResultTxt = f"{stockName} 분석 결과"
-                for key, value in analysisResult.items():
-                    analysisResultTxt += '\n'
-                    analysisResultTxt += f'{key}: {value}'
+                stockPricer = self.rorDivStockAnalyzerThread.stockPricer
+                stockPricer.savePriceDivChart()
+                stockName = stockPricer.getStockName()
+                pricingResult = stockPricer.getResult()
+                pricingResultTxt = f"{stockName} 분석 결과"
+                for key, value in pricingResult.items():
+                    pricingResultTxt += '\n'
+                    pricingResultTxt += f'{key}: {value}'
 
                 self.resultText.delete(1.0,END) # 텍스트 위젯 리셋
-                self.resultText.insert(END, analysisResultTxt)
+                self.resultText.insert(END, pricingResultTxt)
             else:
                 LOG('stock analysis fail !')
 
