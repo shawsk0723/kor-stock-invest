@@ -30,3 +30,5 @@ class DivHistoryAnalyzer:
         divGrowthRate7 = self.divExcelAnalyzer.getDivGrowthRates([stockCode], 7)
         LOG(f'7 year div growth rates  {divGrowthRate7}')
         divGrowthInfo['배당 성장률(7)'] = divGrowthRate7
+
+        return divGrowthInfo
