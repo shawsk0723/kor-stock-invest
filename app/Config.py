@@ -10,6 +10,9 @@ DEBUG = 'Debug'
 
 __BUILD_TYPE__ = DEBUG
 
+def isRelease():
+    return __BUILD_TYPE__ == RELEASE
+
 
 """
 앱 유효 기간
