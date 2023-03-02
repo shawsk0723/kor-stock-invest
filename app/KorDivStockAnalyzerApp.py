@@ -117,7 +117,7 @@ class GUI:
         if self.analysisFinished:
             if self.analysisResult:
                 LOG('stock analysis success !')
-                stockAnalyzer = self.rorDivStockAnalyzerThread.stockAnalyzer
+                stockAnalyzer = self.rorDivStockAnalyzerThread.stockPricer
                 stockAnalyzer.savePriceDivChart()
                 stockName = stockAnalyzer.getStockName()
                 analysisResult = stockAnalyzer.getResult()
