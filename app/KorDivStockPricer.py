@@ -58,8 +58,8 @@ class KorDivStockPricer():
     """
     주가, 배당금 데이터로 매수 가격, 매도 가격, 매수 점수 계산
     """
-    def analyzeStockData(self):
-        LOG(f'analyzeStockData, stock name = {self.stockName}')
+    def doStockPricing(self):
+        LOG(f'doStockPricing, stock name = {self.stockName}')
         
         df_f = self.df_f
         df_p = self.df_p
@@ -74,29 +74,31 @@ class KorDivStockPricer():
         div_min = round(min(div_yields_without_zero_filtered), 2)
         div_max = round(max(div_yields_without_zero_filtered), 2)
 
+        self.pricingResult = {}
         self.cur_dps = df_cur_f.DPS[0]
         LOG(f'배당금 = {self.cur_dps}')
+        self.pricingResult['배당금'] = [self.cur_dps]
 
         self.cur_div = df_cur_f.DIV[0]
         LOG(f'배당률 = {self.cur_div}')
+        self.pricingResult['배당률'] = [self.cur_div]
 
         self.buy_price = df_cur_f.DPS[0]/div_max * 100
         LOG(f'목표 매수 가격 = {round(self.buy_price)}')
+        self.pricingResult['목표 매수 가격'] = [round(self.buy_price)]
 
         self.sell_price = df_cur_f.DPS[0]/div_min * 100
         LOG(f'목표 매도 가격 = {round(self.sell_price)}')
+        self.pricingResult['목표 매도 가격'] = [round(self.sell_price)]
 
         self.buy_score = StockUtil.calculate_buy_score(self.cur_div, div_min, div_max)
         LOG(f'매수 점수 = {round(self.buy_score)}')
+        self.pricingResult['매수 점수'] = [round(self.buy_score)]
+
+        return self.pricingResult
 
     def getResult(self):
-        analysisResult = {}
-        analysisResult['배당금'] = self.cur_dps
-        analysisResult['배당률'] = self.cur_div
-        analysisResult['목표 매수 가격'] = round(self.buy_price)
-        analysisResult['목표 매도 가격'] = round(self.sell_price)
-        analysisResult['매수 점수'] = round(self.buy_score)
-        return analysisResult
+        return self.pricingResult
 
     def savePriceDivChart(self):
 
