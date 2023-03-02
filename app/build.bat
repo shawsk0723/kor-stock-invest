@@ -1,0 +1,1 @@
+pyinstaller --onefile --noconsole --paths=kodivstock KorDivStockAnalyzerApp.py
