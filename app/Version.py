@@ -1,5 +1,9 @@
 """
-Version
+KorDivStockAnalyzerApp
+
+Author
+- 코드장인
+- https://blog.naver.com/shawgibal
 """
 
 #
