@@ -14,10 +14,11 @@ from tkinter import messagebox
 import tkinter.ttk
 
 import Config
+import ExpiryChecker
 from AppLogger import LOG
 from BlogOpener import openBlog
 from KorDivStockAnalyzerThread import KorDivStockAnalyzerThread
-import ExpiryChecker
+from ResultDisplayWindow import ResultDisplayWindow
 
 """
 App config
@@ -75,15 +76,15 @@ class GUI:
                     messagebox.showerror('Error', '코드를 입력하세요!')
                     return
                 # 결과 리셋
-                self.resultText.delete(1.0,END)
-                self.resultText.insert(END, '분석 결과')
+                self.statusText.delete(1.0,END)
+                self.statusText.insert(END, '분석 결과')
                 # 분석 쓰레드 실행
                 self.rorDivStockAnalyzerThread = KorDivStockAnalyzerThread(self)
                 self.rorDivStockAnalyzerThread.start()
             except Exception as e:
                 print(e)
 
-        self.messageLabel = Label(root, text = '주식 코드 입력', height=3)
+        self.messageLabel = Label(root, text = Config.INPUT_GUIDE_LABEL, height=3)
         self.messageLabel.pack(pady=PADY)
 
         self.codeEntry = Entry(root, width=50)           # root라는 창에 입력창 생성
@@ -101,10 +102,9 @@ class GUI:
         self.statusLabel = Label(root, text = f'진행 상태')
         self.statusLabel.pack(pady=PADY*2)
 
-        #self.resultLabel = Label(root, text = f'분석 결과')
-        self.resultText = Text(root, height=10, width=50)
-        self.resultText.insert(END, '분석 결과')
-        self.resultText.pack(pady=PADY*2)
+        self.statusText = Text(root, height=10, width=50)
+        #self.statusText.insert(END, '')
+        self.statusText.pack(pady=PADY*2)
 
         openBlogButton = Button(root, text = "코드장인의 블로그 바로가기",command=openBlog)
         openBlogButton.pack(side=BOTTOM, pady=20)
@@ -121,13 +121,15 @@ class GUI:
                 stockPricer.savePriceDivChart()
                 stockName = stockPricer.getStockName()
                 pricingResult = stockPricer.getResult()
+
+
                 pricingResultTxt = f"{stockName} 분석 결과"
                 for key, value in pricingResult.items():
                     pricingResultTxt += '\n'
                     pricingResultTxt += f'{key}: {value}'
 
-                self.resultText.delete(1.0,END) # 텍스트 위젯 리셋
-                self.resultText.insert(END, pricingResultTxt)
+                self.statusText.delete(1.0,END) # 텍스트 위젯 리셋
+                self.statusText.insert(END, pricingResultTxt)
             else:
                 LOG('stock analysis fail !')
 
