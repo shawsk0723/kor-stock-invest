@@ -14,31 +14,30 @@ from tkinter import ttk
 
 PADY = 3
 
-class ResultDisplayWindow:
+class ResultDisplayWindow(Toplevel):
 
-    def __init__(self, stockName="주식 분석 결과"):
+    def __init__(self, root, stockName="주식 분석 결과"):
 
         # Create an instance of tkinter frame
-        win = Tk()
+        #self.win =Tk()
+        super().__init__(master = root)
 
-        win.title(f"분석 결과를 알려 드립니다~")
+        self.title(f"분석 결과를 알려 드립니다~")
 
         # Set the size of the tkinter window
-        win.geometry("700x350")
+        self.geometry("700x350")
 
         # Create an object of Style widget
-        style = ttk.Style()
-        style.theme_use('clam')
+        #style = ttk.Style()
+        #style.theme_use('clam')
 
-        self.messageLabel = Label(win, text = stockName, height=3)
+        self.messageLabel = Label(self, text = stockName, height=3)
         self.messageLabel.pack(pady=PADY)
 
         self.setHeadRow()
 
-        self.win = win
-
-    def setHeadRow(self, headRow=["아이템", "밸류"]):
-        treeView = ttk.Treeview(self.win, column=headRow, show='headings', height=5, padding=10)
+    def setHeadRow(self, headRow=["항목", "값"]):
+        treeView = ttk.Treeview(self, column=headRow, show='headings', height=8, padding=10)
         treeView.pack(anchor=CENTER)
 
         for i, head in zip(range(len(headRow)), headRow):
@@ -47,15 +46,19 @@ class ResultDisplayWindow:
 
         self.treeView = treeView
 
+    def setBodyRow(self, bodyRow):
+        # Insert the data in Treeview widget
+        self.treeView.insert('', 'end', text="1", values=bodyRow)
+
     def setBodyRows(self, bodyRows):
         # Insert the data in Treeview widget
         for bodyRow in bodyRows:
-            self.treeView.insert('', 'end', text="1", values=bodyRow)
-
+            self.setBodyRow(bodyRow)
 
     def display(self):
+        #self.mainloop()
+        pass
 
-        self.win.mainloop()
 
 
 def test():
@@ -67,7 +70,7 @@ def test():
                 ]
 
     resultDisplayWindow = ResultDisplayWindow('고려아연')
-    resultDisplayWindow.setHeadRow()
+    #resultDisplayWindow.setHeadRow()
     resultDisplayWindow.setBodyRows(bodyRows)
     resultDisplayWindow.display()
 
