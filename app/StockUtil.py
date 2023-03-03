@@ -1,3 +1,10 @@
+"""
+KorDivStockAnalyzerApp
+
+Author
+- 코드장인
+- https://blog.naver.com/shawgibal
+"""
 
 from datetime import datetime
 from datetime import timedelta
