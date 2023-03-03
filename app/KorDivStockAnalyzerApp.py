@@ -16,6 +16,7 @@ from AppLogger import LOG
 from BlogOpener import openBlog
 from KorDivStockAnalyzerThread import KorDivStockAnalyzerThread
 from ResultDisplayWindow import ResultDisplayWindow
+import HelpMenu
 
 """
 App config
@@ -106,6 +107,25 @@ class GUI:
 
         openBlogButton = Button(root, text = "코드장인의 블로그 바로가기",command=openBlog)
         openBlogButton.pack(side=BOTTOM, pady=20)
+
+        """
+        메뉴
+        """
+        self.menu = Menu(self.root)
+
+        file_menu = Menu(self.menu, tearoff=0)
+        file_menu.add_command(label="열기",
+                              command=None
+                              )
+        file_menu.entryconfig(1, state=DISABLED)
+        self.menu.add_cascade(label='파일', menu=file_menu)
+
+        help_menu = Menu(self.menu, tearoff=0)
+        help_menu.add_command(label="안티똥손",
+                              command=HelpMenu.showAbout
+                              )
+        self.menu.add_cascade(label='도움말', menu=help_menu)
+        self.root.config(menu=self.menu)
 
     def threadCb(self, success):
         self.analysisFinished = True
