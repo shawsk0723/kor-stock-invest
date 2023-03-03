@@ -50,6 +50,7 @@ class KorDivStockAnalyzerThread(threading.Thread):
         # GUI 업데이트
         self.root.startButton['state'] = DISABLED
         self.root.progressbar.start(10)
+        self.root.statusText.delete(1.0, END) # 텍스트 위젯 리셋
 
         # 주가와 배당금 데이터 수집, 분석 
         try:
@@ -65,18 +66,19 @@ class KorDivStockAnalyzerThread(threading.Thread):
             stockName = self.stockPricer.getStockName()
 
             # collect stock data
-            self.root.statusLabel.configure(text = f'{stockName} 데이터를 수집합니다.')
+            self.root.statusText.insert(END, f'{stockName} 데이터를 수집합니다.')
+
             self.stockPricer.collectStockData()
 
             # analyze stock data
-            self.root.statusLabel.configure(text = f'{stockName} 데이터를 분석합니다.')
+            self.root.statusText.insert(END, f'{stockName} 데이터를 분석합니다.')
             self.pricingResult = self.stockPricer.doStockPricing()
 
-            self.root.statusLabel.configure(text = f'{stockName} 데이터 분석을 완료하였습니다.')
+            self.root.statusText.insert(END, f'{stockName} 데이터 분석을 완료하였습니다.')
 
             self.root.threadCb(True)
         except Exception as e:
-            self.root.statusLabel.configure(text = str(e))
+            self.root.statusText.insert(END, str(e))
             self.root.threadCb(False)
         finally:
             # GUI 업데이트
