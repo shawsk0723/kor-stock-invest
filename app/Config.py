@@ -26,7 +26,8 @@ App Config
 WIN_SIZE = "800x600"
 
 WIN_TITLE = f'안티똥손 {Version.getVersion()} {__BUILD_TYPE__}'
-START_BUTTON_LABEL = '분석 실행'
+INPUT_GUIDE_LABEL = '주식 코드를 입력하세요~'
+START_BUTTON_LABEL = '분석해 주세요~'
 DATA_DIR = os.path.join(os.getcwd(), 'data')
 OUR_DIR = os.path.join(os.getcwd(), 'output')
 
