@@ -1,3 +1,11 @@
+"""
+KorDivStockAnalyzerApp
+
+Author
+- 코드장인
+- https://blog.naver.com/shawgibal
+"""
+
 import os
 from pykrx import stock
 from scipy.signal import savgol_filter
