@@ -44,7 +44,7 @@ class GUI:
         root.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         self.stockCode = ""
-        self.rorDivStockAnalyzerThread = None
+        self.korDivStockAnalyzerThread = None
 
         self.analysisResult = False
         self.analysisFinished = False
@@ -55,17 +55,17 @@ class GUI:
     def onClosing(self):
         LOG('onClosing()')
         try:
-            root.after_cancel(self.analysisResultChecker)
-            root.destroy()
+            self.root.after_cancel(self.analysisResultChecker)
+            self.root.destroy()
         except Exception as e:
             LOG(str(e))
 
     def start(self):
 
         if ExpiryChecker.checkExpiry():
-            msg_box = messagebox.showerror('Error', '만료되었습니다!')
+            msg_box = messagebox.showerror('Error', Config.EXPIRED_MESSAGE)
             if msg_box == 'ok':
-                root.destroy()
+                self.root.destroy()
                 return
 
         def startButtonCb():                            # 함수 startButtonCb() 정의
@@ -75,12 +75,12 @@ class GUI:
                 if self.stockCode == "":
                     messagebox.showerror('Error', '코드를 입력하세요!')
                     return
-                # 결과 리셋
+                # 결과 텍스트 위젯 리셋
                 self.statusText.delete(1.0,END)
-                self.statusText.insert(END, '분석 결과')
+                self.statusText.insert(END, '분석을 시작합니다.')
                 # 분석 쓰레드 실행
-                self.rorDivStockAnalyzerThread = KorDivStockAnalyzerThread(self)
-                self.rorDivStockAnalyzerThread.start()
+                self.korDivStockAnalyzerThread = KorDivStockAnalyzerThread(self)
+                self.korDivStockAnalyzerThread.start()
             except Exception as e:
                 print(e)
 
@@ -88,6 +88,7 @@ class GUI:
         self.messageLabel.pack(pady=PADY)
 
         self.codeEntry = Entry(root, width=50)           # root라는 창에 입력창 생성
+        self.codeEntry.insert(0, Config.DEFAULT_STOCK_CODE)
         self.codeEntry.pack(pady=PADY)                               # 입력창 배치
 
         self.startButton = Button(root)                       # root라는 창에 버튼 생성
@@ -117,19 +118,13 @@ class GUI:
         if self.analysisFinished:
             if self.analysisResult:
                 LOG('stock analysis success !')
-                stockPricer = self.rorDivStockAnalyzerThread.stockPricer
-                stockPricer.savePriceDivChart()
-                stockName = stockPricer.getStockName()
-                pricingResult = stockPricer.getResult()
+                stockName = self.korDivStockAnalyzerThread.getStockName()
+                resultDisplayWindow = ResultDisplayWindow(self.root, stockName)
+                analysisResult = self.korDivStockAnalyzerThread.getAnalysisResult()
+                for key, value in  analysisResult.items():
+                    resultDisplayWindow.setBodyRow([key, value[0]])
 
-
-                pricingResultTxt = f"{stockName} 분석 결과"
-                for key, value in pricingResult.items():
-                    pricingResultTxt += '\n'
-                    pricingResultTxt += f'{key}: {value}'
-
-                self.statusText.delete(1.0,END) # 텍스트 위젯 리셋
-                self.statusText.insert(END, pricingResultTxt)
+                self.korDivStockAnalyzerThread.saveResult()
             else:
                 LOG('stock analysis fail !')
 
