@@ -6,9 +6,6 @@ Author
 - https://blog.naver.com/shawgibal
 """
 
-
-
-import traceback
 from tkinter import *
 from tkinter import messagebox
 import tkinter.ttk
