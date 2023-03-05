@@ -16,18 +16,9 @@ class ResultDisplayWindow(Toplevel):
 
     def __init__(self, root, stockName="주식 분석 결과"):
 
-        # Create an instance of tkinter frame
-        #self.win =Tk()
         super().__init__(master = root)
 
         self.title(f"분석 결과를 알려 드립니다~")
-
-        # Set the size of the tkinter window
-        self.geometry("700x350")
-
-        # Create an object of Style widget
-        #style = ttk.Style()
-        #style.theme_use('clam')
 
         self.messageLabel = Label(self, text = stockName, height=3)
         self.messageLabel.pack(pady=PADY)
