@@ -6,6 +6,7 @@ app/kodivstock/__pycache__/
 app/build/
 app/dist/
 app/output/
+app/release/
 
 app/*.spec
 app/*.log
