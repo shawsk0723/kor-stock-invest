@@ -6,12 +6,12 @@ Author
 - https://blog.naver.com/shawgibal
 """
 
+import pandas as pd
 
 def getDefaultStockCode():
     try:
-        with open("./data/default_stock_code.txt") as file:
-            defaultStockCode = file.read()
-            return defaultStockCode[:6]
+        df = pd.read_csv('./data/stocklist.csv')
+        return str(df.code[0]).zfill(6)
     except Exception as e:
         return ""
 
