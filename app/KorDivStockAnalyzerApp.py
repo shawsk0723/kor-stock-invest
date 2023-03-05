@@ -16,6 +16,7 @@ from AppLogger import LOG
 from BlogOpener import openBlog
 from KorDivStockAnalyzerThread import KorDivStockAnalyzerThread
 from ResultDisplayWindow import ResultDisplayWindow
+import UserSettings
 import HelpMenu
 
 """
@@ -86,7 +87,7 @@ class GUI:
         self.messageLabel.pack(pady=PADY)
 
         self.codeEntry = Entry(root, width=50)           # root라는 창에 입력창 생성
-        self.codeEntry.insert(0, Config.DEFAULT_STOCK_CODE)
+        self.codeEntry.insert(0, UserSettings.getDefaultStockCode())
         self.codeEntry.pack(pady=PADY)                               # 입력창 배치
 
         self.startButton = Button(root)                       # root라는 창에 버튼 생성
