@@ -1,2 +1,4 @@
+matplotlib
+scipy
 openpyxl==3.0.9
 pykrx
