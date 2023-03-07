@@ -10,3 +10,4 @@ app/release/
 
 app/*.spec
 app/*.log
+*.pyc
