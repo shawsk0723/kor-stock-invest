@@ -140,8 +140,8 @@ class GUI:
         if self.analysisFinished:
             if self.analysisResult:
                 LOG('stock analysis success !')
-                stockName = self.korDivStockAnalyzerThread.getStockName()
-                resultDisplayWindow = ResultDisplayWindow(self.root, stockName)
+                stockNameList = self.korDivStockAnalyzerThread.getStockName()
+                resultDisplayWindow = ResultDisplayWindow(self.root, stockNameList[-1])
                 analysisResult = self.korDivStockAnalyzerThread.getAnalysisResult()
                 for key, value in  analysisResult.items():
                     resultDisplayWindow.setBodyRow([key, value[0]])
