@@ -14,8 +14,9 @@ import time
 plt.rcParams['font.family'] = 'Malgun Gothic'
 
 from AppLogger import LOG
-import Config
 import StockUtil
+
+SLEEP_TIME = 2
 
 class KorDivStockPricer():
     def __init__(self, stockCode):
@@ -28,7 +29,6 @@ class KorDivStockPricer():
         try:
             if self.stockName == "":
                 self.stockName = stock.get_market_ticker_name(self.stockCode)
-                #stockName = StockUtil.getStockName(stockCode)
             LOG(f'주식 이름: {self.stockName}')
             return self.stockName
         except Exception as e:
@@ -38,31 +38,28 @@ class KorDivStockPricer():
     """
     주가, 배당금 데이터 수집
     """
-    def collectStockData(self):
+    def collectStockData(self, startDate, endDate):
         LOG(f'collectStockData, stock name = {self.stockName}')
 
         stockCode = self.stockCode
 
-        # set period
-        start_date = Config.START_DATE
-        LOG(f'시작일: {start_date}')
-        end_date = StockUtil.getLastBusinessDay()
-        LOG(f'종료일: {end_date}')
-
         # collect price
-        self.df_p = stock.get_market_ohlcv(start_date, end_date, stockCode)
+        self.df_p = stock.get_market_ohlcv(startDate, endDate, stockCode)
 
         # sleep to aviod server denial
-        time.sleep(2)
+        time.sleep(SLEEP_TIME)
 
         # collect dividend
-        self.df_f = stock.get_market_fundamental(start_date, end_date, stockCode, freq='d')
+        self.df_f = stock.get_market_fundamental(startDate, endDate, stockCode, freq='d')
 
         # sleep to aviod server denial
-        time.sleep(2)
+        time.sleep(SLEEP_TIME)
 
-        self.df_cur_f = stock.get_market_fundamental(end_date, end_date, stockCode)
- 
+        self.df_cur_f = stock.get_market_fundamental(endDate, endDate, stockCode)
+
+        # sleep to aviod server denial
+        time.sleep(SLEEP_TIME)
+
     """
     주가, 배당금 데이터로 매수 가격, 매도 가격, 매수 점수 계산
     """
@@ -108,7 +105,7 @@ class KorDivStockPricer():
     def getResult(self):
         return self.pricingResult
 
-    def savePriceDivChart(self):
+    def savePriceDivChart(self, imageFilePath):
 
         # draw graph & save image
         fig, ax1 = plt.subplots()
@@ -126,9 +123,7 @@ class KorDivStockPricer():
         ax2.plot(self.div_yields, color=color)
         plt.title(f'[{self.stockName}] 주가 vs. 배당률')
 
-        saveFilePath = os.path.join(Config.OUR_DIR, f'{self.stockName}.png')
-        plt.savefig(saveFilePath)
+        plt.savefig(imageFilePath)
         plt.close('all')
         #plt.show()
 
-        return saveFilePath
