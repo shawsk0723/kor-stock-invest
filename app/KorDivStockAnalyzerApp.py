@@ -81,7 +81,8 @@ class GUI:
                 self.statusText.delete(1.0,END)
                 self.statusText.insert(END, '분석을 시작합니다.')
                 # 분석 쓰레드 실행
-                self.korDivStockAnalyzerThread = KorDivStockAnalyzerThread(self)
+                self.korDivStockAnalyzerThread = KorDivStockAnalyzerThread(self, 
+                                                    UserSettings.getStockCodeList())
                 self.korDivStockAnalyzerThread.start()
             except Exception as e:
                 print(e)
@@ -90,7 +91,7 @@ class GUI:
         self.messageLabel.pack(pady=PADY)
 
         self.codeEntry = Entry(root, width=50)           # root라는 창에 입력창 생성
-        self.codeEntry.insert(0, UserSettings.getDefaultStockCode())
+        self.codeEntry.insert(0, UserSettings.getStockCodeList()[0])
         self.codeEntry.pack(pady=PADY)                               # 입력창 배치
 
         self.startButton = Button(root)                       # root라는 창에 버튼 생성
