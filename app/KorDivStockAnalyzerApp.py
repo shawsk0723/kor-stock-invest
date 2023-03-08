@@ -11,6 +11,7 @@ from tkinter import messagebox
 import tkinter.ttk
 
 import Config
+import AppUtil
 import ExpiryChecker
 from AppLogger import LOG
 from BlogOpener import openBlog
@@ -47,8 +48,10 @@ class GUI:
 
         self.analysisResult = False
         self.analysisFinished = False
-        #self.downloadWorker = DownloadWorker(os.getcwd() + '\\download\\', self._callback)
-        #self.downloadWorker.start()
+
+        # output 폴더가 없다면 새로 생성
+        AppUtil.makeDirIfNotExist(Config.OUR_DIR)
+
         self.analysisResultChecker = self.root.after(200, self.checkAnalysisResult)
 
     def onClosing(self):
