@@ -19,19 +19,19 @@ from DivHistoryAnalyzer import DivHistoryAnalyzer
 KorDivStockAnalyzerThread
 """
 class KorDivStockAnalyzerThread(threading.Thread):
-    def __init__(self, root):
+    def __init__(self, root, stockCodeList):
         threading.Thread.__init__(self)
         self.root = root
+        self.stockCodeList = stockCodeList
         self.divHistoryAnalyzer = None
         self.stockPricer = None
-        self.stockName = ""
+        self.stockNameList = []
         self.analysisResult = {}
 
     def run(self):
         LOG('KorDivStockAnalyzerThread Start...')
 
         self.divHistoryAnalyzer = DivHistoryAnalyzer()
-        self.stockPricer = KorDivStockPricer(self.root.stockCode)
 
         # GUI 업데이트
         self.root.startButton['state'] = DISABLED
@@ -47,9 +47,13 @@ class KorDivStockAnalyzerThread(threading.Thread):
             if Config.isRelease():
                 self.divHistoryAnalyzer.checkStockCodeInTigerETF(stockCode)
 
+            # create KorDivStockPricer
+            self.stockPricer =KorDivStockPricer(stockCode)
+
             # get stock name
-            self.stockName = self.stockPricer.getStockName()
-            self.root.statusText.insert(END, f'주식 이름은 <<{self.stockName}>>입니다.\n')
+            stockName = self.stockPricer.getStockName()
+            self.stockNameList.append(stockName)
+            self.root.statusText.insert(END, f'주식 이름은 <<{stockName}>>입니다.\n')
 
             self.root.statusText.insert(END, f'배당 성장 정보를 확인합니다.\n')
             self.divGrowthInfo = self.divHistoryAnalyzer.getDivGrowthInfo(stockCode)
@@ -58,6 +62,8 @@ class KorDivStockAnalyzerThread(threading.Thread):
             #self.root.threadCb(True)
             #return
             """ TEST GUI E """
+
+            self.stockPricer = KorDivStockPricer(self.root.stockCode)
 
             # collect stock data
             self.root.statusText.insert(END, f'주가/배당금 데이터를 수집합니다.\n')
@@ -81,7 +87,7 @@ class KorDivStockAnalyzerThread(threading.Thread):
             LOG('KorDivStockAnalyzerThread Stop...')
 
     def getStockName(self):
-        return self.stockName
+        return self.stockNameList
 
     def getAnalysisResult(self):
         return self.analysisResult
