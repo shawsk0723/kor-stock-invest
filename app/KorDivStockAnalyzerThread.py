@@ -6,28 +6,12 @@ Author
 - https://blog.naver.com/shawgibal
 """
 
-import os
-import sys
-
 from tkinter import *            # tkinter 라이브러리에 모든 함수를 사용
-import tkinter.ttk
-
-import numpy as np
-import pandas as pd
-#from scipy.signal import savgol_filter
-from pykrx import stock
-import matplotlib.pyplot as plt
-import time
-#plt.rcParams['font.family'] = 'Malgun Gothic'
-
-import traceback
 import threading
 
+import Config
 from AppLogger import LOG
 from KorDivStockPricer import KorDivStockPricer
-import Config
-import AppUtil
-
 from DivHistoryAnalyzer import DivHistoryAnalyzer
 
 
@@ -45,9 +29,6 @@ class KorDivStockAnalyzerThread(threading.Thread):
 
     def run(self):
         LOG('KorDivStockAnalyzerThread Start...')
-
-        # output 폴더가 없다면 새로 생성
-        AppUtil.makeDirIfNotExist(Config.OUR_DIR)
 
         self.divHistoryAnalyzer = DivHistoryAnalyzer()
         self.stockPricer = KorDivStockPricer(self.root.stockCode)
