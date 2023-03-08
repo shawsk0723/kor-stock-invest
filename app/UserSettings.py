@@ -18,7 +18,7 @@ class StockLister:
         try:
             df = pd.read_csv(self.filePath)
             stockCodeKey = self.stockCodeKey
-            return str(df[stockCodeKey][0]).zfill(6)
+            return [str(df[stockCodeKey][0]).zfill(6)]
         except Exception as e:
             print(str(e))
             return ""
@@ -39,7 +39,7 @@ class StockLister:
 def getDefaultStockCode():
     try:
         df = pd.read_csv('./data/stocklist.csv')
-        return str(df.StockCode[0]).zfill(6)
+        return [str(df.StockCode[0]).zfill(6)]
     except Exception as e:
         print(str(e))
         return ""
