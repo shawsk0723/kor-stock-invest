@@ -6,13 +6,18 @@ Author
 - https://blog.naver.com/shawgibal
 """
 
+import os
 from tkinter import *            # tkinter 라이브러리에 모든 함수를 사용
 import threading
 
 import Config
-from AppLogger import LOG
+import StockUtil
+import logging
 from KorDivStockPricer import KorDivStockPricer
 from DivHistoryAnalyzer import DivHistoryAnalyzer
+
+def LOG(msg):
+    logging.debug(msg)
 
 
 """
@@ -67,7 +72,13 @@ class KorDivStockAnalyzerThread(threading.Thread):
 
             # collect stock data
             self.root.statusText.insert(END, f'주가/배당금 데이터를 수집합니다.\n')
-            self.stockPricer.collectStockData()
+
+            startDate = Config.START_DATE
+            LOG(f'시작일: {startDate}')
+            endDate = StockUtil.getLastBusinessDay()
+            LOG(f'종료일: {endDate}')
+
+            self.stockPricer.collectStockData(startDate, endDate)
 
             # analyze stock data
             self.root.statusText.insert(END, f'주가/배당금 데이터를 분석합니다.\n')
@@ -93,5 +104,6 @@ class KorDivStockAnalyzerThread(threading.Thread):
         return self.analysisResult
 
     def saveResult(self):
-        self.stockPricer.savePriceDivChart()
+        imageFilePath = os.path.join(Config.OUT_DIR, f'{self.stockNameList[-1]}.png')
+        self.stockPricer.savePriceDivChart(imageFilePath)
         # To-Do save analysis result to excel file
