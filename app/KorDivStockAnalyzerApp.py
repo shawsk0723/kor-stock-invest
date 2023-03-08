@@ -50,7 +50,7 @@ class GUI:
         self.analysisFinished = False
 
         # output 폴더가 없다면 새로 생성
-        AppUtil.makeDirIfNotExist(Config.OUR_DIR)
+        AppUtil.makeDirIfNotExist(Config.OUT_DIR)
 
         self.analysisResultChecker = self.root.after(200, self.checkAnalysisResult)
 
