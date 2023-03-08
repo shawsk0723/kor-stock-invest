@@ -5,16 +5,22 @@ Author
 - 코드장인
 - https://blog.naver.com/shawgibal
 """
-
-import os
+import os, sys
+import logging
 from pykrx import stock
 from scipy.signal import savgol_filter
 import matplotlib.pyplot as plt
 import time
 plt.rcParams['font.family'] = 'Malgun Gothic'
 
-from AppLogger import LOG
-import StockUtil
+kodivstock_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
++ '/kodivstock/')
+sys.path.append(kodivstock_dir)
+
+import kodivstock.stockutil as stockutil
+
+def LOG(msg):
+    logging.debug(msg)
 
 SLEEP_TIME = 2
 
@@ -96,7 +102,7 @@ class KorDivStockPricer():
         LOG(f'목표 매도 가격 = {round(self.sell_price)}')
         self.pricingResult['목표 매도 가격'] = [round(self.sell_price)]
 
-        self.buy_score = StockUtil.calculate_buy_score(self.cur_div, div_min, div_max)
+        self.buy_score = stockutil.calculate_buy_score(self.cur_div, div_min, div_max)
         LOG(f'매수 점수 = {round(self.buy_score)}')
         self.pricingResult['매수 점수'] = [round(self.buy_score)]
 
@@ -121,7 +127,7 @@ class KorDivStockPricer():
         color = 'tab:blue'
         ax2.set_ylabel('dividend yield', color=color)
         ax2.plot(self.div_yields, color=color)
-        plt.title(f'[{self.stockName}] 주가 vs. 배당률')
+        plt.title(f'[{self.getStockName()}] 주가 vs. 배당률')
 
         plt.savefig(imageFilePath)
         plt.close('all')
