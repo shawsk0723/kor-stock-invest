@@ -11,4 +11,5 @@ app/release/
 app/*.spec
 app/*.log
 *.pyc
-app/kodivstock.egg-info/
+
+kodivstock_package/kodivstock.egg-info/
