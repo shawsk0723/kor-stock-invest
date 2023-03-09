@@ -110,6 +110,7 @@ class KorDivStockPricer():
     def savePriceDivChart(self, imageFilePath):
 
         # draw graph & save image
+        plt.rcParams["figure.figsize"] = (8,6)
         fig, ax1 = plt.subplots()
 
         color = 'tab:red'
@@ -123,8 +124,13 @@ class KorDivStockPricer():
         color = 'tab:blue'
         ax2.set_ylabel('dividend yield', color=color)
         ax2.plot(self.div_yields, color=color)
-        plt.title(f'[{self.getStockName()}] 주가 vs. 배당률')
 
+        ax2.axhline(y=min(self.div_yields), color='y', linestyle='--', label='min div yield')
+        ax2.axhline(y=max(self.div_yields), color='r', linestyle='--', label='max div yield')
+        ax2.axhline(y=self.div_yields[-1], color='g', linestyle='--', label='current div yield')
+
+        plt.legend(loc='upper left', framealpha=1.0)
+        plt.title(f'[{self.getStockName()}] 주가 vs. 배당률')
         plt.savefig(imageFilePath)
         plt.close('all')
         #plt.show()
