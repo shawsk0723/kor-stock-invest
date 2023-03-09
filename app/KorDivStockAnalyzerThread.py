@@ -6,7 +6,7 @@ Author
 - https://blog.naver.com/shawgibal
 """
 
-import os, sys
+import os
 from tkinter import *            # tkinter 라이브러리에 모든 함수를 사용
 import threading
 
@@ -14,11 +14,6 @@ import Config
 import logging
 from KorDivStockPricer import KorDivStockPricer
 from DivHistoryAnalyzer import DivHistoryAnalyzer
-
-kodivstock_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-+ '/kodivstock/')
-sys.path.append(kodivstock_dir)
-
 import kodivstock.stockutil as stockutil
 
 def LOG(msg):
