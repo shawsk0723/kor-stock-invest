@@ -5,17 +5,13 @@ Author
 - 코드장인
 - https://blog.naver.com/shawgibal
 """
-import os, sys
+
 import logging
 from pykrx import stock
 from scipy.signal import savgol_filter
 import matplotlib.pyplot as plt
 import time
 plt.rcParams['font.family'] = 'Malgun Gothic'
-
-kodivstock_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-+ '/kodivstock/')
-sys.path.append(kodivstock_dir)
 
 import kodivstock.stockutil as stockutil
 
