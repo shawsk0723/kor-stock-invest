@@ -9,13 +9,15 @@ Author
 from tkinter import *
 from tkinter import messagebox
 import tkinter.ttk
+import traceback
 
 import Config
 import AppUtil
 import ExpiryChecker
 from AppLogger import LOG
 from BlogOpener import openBlog
-from DivStockAnalyzerThread import DivStockAnalyzerThread
+from KorDivStockAnalyzer import KorDivStockAnalyzer
+from WorkerThread import WorkerThread
 from ResultDisplayWindow import ResultDisplayWindow
 import UserSettings
 import HelpMenu
@@ -44,7 +46,8 @@ class GUI:
         root.protocol("WM_DELETE_WINDOW", self.onClosing)
 
         self.stockCode = ""
-        self.divStockAnalyzerThread = None
+        self.stockAnalyzer = None
+        self.workerThread = None
 
         self.analysisResult = False
         self.analysisFinished = False
@@ -80,11 +83,14 @@ class GUI:
                 # 결과 텍스트 위젯 리셋
                 self.statusText.delete(1.0,END)
                 self.statusText.insert(END, '분석을 시작합니다.')
+
                 # 분석 쓰레드 실행
-                self.divStockAnalyzerThread = DivStockAnalyzerThread(self, 
-                                                    UserSettings.getStockCodeList())
-                self.divStockAnalyzerThread.start()
+                self.stockAnalyzer = KorDivStockAnalyzer(self,
+                                                UserSettings.getStockCodeList())
+                self.workerThread = WorkerThread(self.stockAnalyzer)
+                self.workerThread.start()
             except Exception as e:
+                traceback.format_exc()
                 print(e)
 
         self.messageLabel = Label(root, text = Config.INPUT_GUIDE_LABEL, height=3)
@@ -140,13 +146,13 @@ class GUI:
         if self.analysisFinished:
             if self.analysisResult:
                 LOG('stock analysis success !')
-                stockNameList = self.divStockAnalyzerThread.getStockName()
+                stockNameList = self.stockAnalyzer.getStockName()
                 resultDisplayWindow = ResultDisplayWindow(self.root, stockNameList[-1])
-                analysisResult = self.divStockAnalyzerThread.getAnalysisResult()
+                analysisResult = self.stockAnalyzer.getAnalysisResult()
                 for key, value in  analysisResult.items():
                     resultDisplayWindow.setBodyRow([key, value[0]])
 
-                self.divStockAnalyzerThread.saveResult()
+                self.stockAnalyzer.saveResult()
             else:
                 LOG('stock analysis fail !')
 
