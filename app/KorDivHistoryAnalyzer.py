@@ -6,14 +6,12 @@ Author
 - https://blog.naver.com/shawgibal
 """
 
-import os
-import sys
-from AppLogger import LOG
+import logging
 
-kodivstock_dir = (os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-+ '/kodivstock/')
-sys.path.append(kodivstock_dir)
-import divexcelanalyzer as dea
+import kodivstock.divexcelanalyzer as dea
+
+def LOG(msg):
+    logging.debug(msg)
 
 
 class KorDivHistoryAnalyzer:
