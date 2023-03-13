@@ -6,6 +6,7 @@ Author
 - https://blog.naver.com/shawgibal
 """
 import os
+from hashlib import blake2b
 import tempfile
 from datetime import datetime
 from datetime import timedelta
@@ -22,7 +23,11 @@ def getExiryDate():
 
 class ExpiryChecker:
     def __init__(self, expiration_day = Config.EXPIRATION_DAY):
-        self.expiry_file_path = os.path.join(tempfile.gettempdir(), 'anti-shit-hand-expiry.bin') 
+        m = blake2b(digest_size=17)
+        m.update(Config.WIN_TITLE.encode('utf-8'))
+        expiryfilename = m.hexdigest() + '.bin'
+        print(f'expiryfilename length = {len(expiryfilename)}')
+        self.expiry_file_path = os.path.join(tempfile.gettempdir(), expiryfilename) 
         self.expiration_day = expiration_day
         self.remained_day = 0
 
