@@ -20,13 +20,12 @@ def getExiryDate():
     exiryDate = (Config.APP_EXPIRE_DATE - timedelta(days=1)).strftime("%Y-%m-%d")
     return exiryDate
 
-
 class ExpiryChecker:
     def __init__(self, expiration_day = Config.EXPIRATION_DAY):
         m = blake2b(digest_size=17)
         m.update(Config.WIN_TITLE.encode('utf-8'))
         expiryfilename = m.hexdigest() + '.bin'
-        print(f'expiryfilename length = {len(expiryfilename)}')
+        #print(f'expiryfilename length = {len(expiryfilename)}')
         self.expiry_file_path = os.path.join(tempfile.gettempdir(), expiryfilename) 
         self.expiration_day = expiration_day
         self.remained_day = 0
@@ -34,7 +33,7 @@ class ExpiryChecker:
     def isExpired(self):
         if Config.__APP_GRADE__ == Config.FREE:
             current_date = datetime.now()
-            print(f'expiry_setting_file_path = {self.expiry_file_path}')
+            print(f'expiry_file_path = {self.expiry_file_path}')
             if os.path.isfile(self.expiry_file_path):
                 with open(self.expiry_file_path, 'r') as f:
                     install_date =f.read()
