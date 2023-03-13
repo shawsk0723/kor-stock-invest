@@ -2,6 +2,16 @@ import os
 from datetime import datetime
 import Version
 
+
+"""
+App Grade
+"""
+FREE = '무료'
+PAID = '유료'
+
+__APP_GRADE__ = FREE
+
+
 """
 Build Type
 """
@@ -17,6 +27,9 @@ def isRelease():
 """
 앱 유효 기간
 """
+
+EXPIRATION_DAY = 30
+
 APP_EXPIRE_DATE = datetime(2023,5,1)
 #APP_EXPIRE_DATE = datetime(2023,2,1)
 
