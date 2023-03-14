@@ -13,7 +13,7 @@ import traceback
 
 import Config
 import AppUtil
-import ExpiryChecker
+from ExpiryChecker import ExpiryChecker
 from AppLogger import LOG
 from BlogOpener import openBlog
 from KorDivStockAnalyzer import KorDivStockAnalyzer
@@ -67,13 +67,21 @@ class GUI:
 
     def start(self):
 
-        if ExpiryChecker.checkExpiry():
-            msg_box = messagebox.showerror('Error', Config.EXPIRED_MESSAGE)
-            if msg_box == 'ok':
-                self.root.destroy()
-                return
+        if Config.__APP_GRADE__ == Config.FREE:
+            expiryChecker = ExpiryChecker()
+            if expiryChecker.isExpired():
+                msg_box = messagebox.showerror('Error', Config.EXPIRED_MESSAGE)
+                if msg_box == 'ok':
+                    self.root.destroy()
+                    return
+            else:
+                remainedDay = expiryChecker.getRemainedDay()
+                LOG(f'remained day = {remainedDay}')
+                self.expiryLabel = Label(root, text = f'사용 기간이 {remainedDay}일 남았습니다.', height=2)
+                self.expiryLabel.pack(pady=PADY)
 
-        def startButtonCb():                            # 함수 startButtonCb() 정의
+        # Start Button 콜백 함수
+        def startButtonCb():
             try:
                 LOG('Start Button Clicked ~')
                 self.stockCode = self.codeEntry.get()
@@ -93,7 +101,7 @@ class GUI:
                 traceback.format_exc()
                 print(e)
 
-        self.messageLabel = Label(root, text = Config.INPUT_GUIDE_LABEL, height=3)
+        self.messageLabel = Label(root, text = Config.INPUT_GUIDE_LABEL, height=2)
         self.messageLabel.pack(pady=PADY)
 
         self.codeEntry = Entry(root, width=50)           # root라는 창에 입력창 생성
